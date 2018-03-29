@@ -1,0 +1,50 @@
+!<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="positioner.js"></script>
+        <meta charset="utf-8">
+        <title>Test JS</title>
+    </head>
+    <body>
+        <script>
+            const pos = positioner('Hello world! This is the sencence.');
+
+            alert(pos.has('hello'));
+
+            alert(pos.next('ll'));
+            alert(pos.next('!'));
+            alert(pos.next('is'));
+            alert(pos.next('is'));
+
+            pos.reset();
+
+            alert(pos.nextBulk('ll', '!', 'is', 'is'));
+
+            alert(pos.has('hello'));
+
+            // Mistake in dt.tntu
+            alert(pos.next('he'));
+            alert(pos.prev('!'));
+            pos.reset();
+
+            pos.searchFromStart();
+
+            pos.forward(5);
+
+            // Mistake in dt.tntu
+            pos.add('substr');
+            pos.showString();
+
+            // Mistake in dt.tntu
+            pos.remove(6);
+            pos.showString();
+
+            pos.replace('is', 'si');
+            pos.showString();
+
+            const pos2 = positioner('ііі');
+            const pos3 = positioner('sss');
+            alert(positioner.getPositionersCount());
+        </script>
+    </body>
+</html>
