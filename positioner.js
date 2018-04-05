@@ -40,7 +40,7 @@ function positioner(inputString) {
         },
 
         // Returns index of previous word in right direction.
-        // (That is same like func 'next' for the opposite direction.)
+        // (Similar to func 'next' for the opposite direction.)
         prev: function(substring) {
             let indexes = getIndexes(getHead(), getRegex(substring)); // Get substring entry indexes
 
@@ -73,7 +73,7 @@ function positioner(inputString) {
             if(indexStart != -1) {
                 let indexEnd = indexStart + from.length; // Get end index of necessary word
 
-                // Repace base string with 3 parts: head + new word + tail
+                // Relpace base string with 3 parts: head + new word + tail
                 workspace = workspace.substring(0, indexStart) + to + workspace.substring(indexEnd);
                 return 1;
             }
