@@ -62,22 +62,13 @@ function positioner(inputString) {
         },
 
         // Replaces next entry of necessary word for another one.
-        // Returns:
-        //      1 - if word have been changed;
-        //      0 - in the opposite case.
         replace: function(from, to) {
-            // Call function 'next' with flag of moving = false to not move pointer
-            let indexStart = this.next(from, false); // Get start index of necessary word
+            _replace(from, to);
+        },
 
-            // Check if the necessary word contains in base string
-            if(indexStart != -1) {
-                let indexEnd = indexStart + from.length; // Get end index of necessary word
-
-                // Relpace base string with 3 parts: head + new word + tail
-                workspace = workspace.substring(0, indexStart) + to + workspace.substring(indexEnd);
-                return 1;
-            }
-            return 0;
+        // Replaces all of inputs of necessary word in base string for another one
+        replaceAll: function(from, to) {
+            _replace(from, to, 'g');
         },
 
         // Executes function 'next' for N arguments and returns array of results.
@@ -168,6 +159,10 @@ function positioner(inputString) {
     // Direction = false ->   TAIL | HEAD
     function getTail() {
         return direction ? workspace.substring(pointer) : workspace.substring(0, workspace.length - pointer);
+    }
+
+    function _replace(from, to, regExpFlag = '') {
+        workspace = workspace.replace(new RegExp(from, regExpFlag), to);
     }
 
     // Returns the substring on left or right side of pointer which not used in search
