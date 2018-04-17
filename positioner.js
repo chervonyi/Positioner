@@ -50,8 +50,11 @@ function positioner(inputString) {
             }
 
             let index;
+            // |qwerTy
+
             if(!direction) { // <---
-                index = indexes[0]+pointer;
+                //index = indexes[0] + pointer;
+                index = pointer - indexes[0];
                 pointer = index - substring.length;
             } else { // -->
                 index = indexes[indexes.length-1];
@@ -120,7 +123,7 @@ function positioner(inputString) {
 
             let length = workspace.length;
             if(pointer > length)
-                prointer = length;
+                pointer = length;
         },
 
         // Makes N steps back in right direction
@@ -128,29 +131,43 @@ function positioner(inputString) {
             pointer -= step;
 
             if(pointer < 0)
-                prointer = 0;
+                pointer = 0;
         },
 
         // Pastes substring in current position of pointer
-        add: function(substring) {
-            workspace = workspace.substring(0, pointer) + substring + workspace.substring(pointer);
+        add: function(word) {
+            let reverse = workspace.length - pointer;
+
             if(direction) {
-                pointer += substring.length;
+                workspace = workspace.substring(0, pointer) + word + workspace.substring(pointer);
+            } else {
+                workspace = workspace.substring(0, reverse) + word + workspace.substring(reverse);
             }
+            pointer += word.length;
         },
 
         // Removes N symbols in right direction
         remove: function(num) {
+            let reverse = workspace.length - pointer;
             if(direction) {
                 workspace = workspace.substring(0, pointer) + workspace.substring(pointer+num);
             } else {
-                workspace = workspace.substring(0, pointer).slice(0, -num) + workspace.substring(pointer);
+                workspace = workspace.substring(0, reverse-num) + workspace.substring(reverse);
+                //workspace = workspace.substring(0, pointer-num) + workspace.substring(pointer);
             }
         },
 
-        // Show current view of base string in message box
-        showString: function() {
-            alert(workspace);
+        // Returns current view of base string in message box
+        getWorkspace: function() {
+            return workspace;
+        },
+
+        getDirection: function() {
+            return direction;
+        },
+
+        getPointer() {
+            return pointer;
         }
     }
 
@@ -184,7 +201,6 @@ function positioner(inputString) {
     function getRegex(substring) {
         return new RegExp("(" + substring + ")", "gi");
     }
-
 }
 
 positioner.count = 0; // Initial value of amount of created objects
