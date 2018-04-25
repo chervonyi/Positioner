@@ -1,10 +1,12 @@
 function positioner(inputString) {
     positioner.count++;
-    let pointer = 0; // Position of inner pointer. Default position: 0
-    let workspace = inputString; // Base string
-    let direction = true; // Direction of search  in workspace  <-- FALSE | TRUE -->
+    var pointer = 0; // Position of inner pointer. Default position: 0
+    var workspace = inputString; // Base string
+    var direction = true; // Direction of search  in workspace  <-- FALSE | TRUE -->
 
     return {
+
+
         // Checks if input substring contains in base string in right direction
         has: function(substring) {
             return getIndexes(getTail(), getRegex(substring)).length > 0;
@@ -50,10 +52,8 @@ function positioner(inputString) {
             }
 
             let index;
-            // |qwerTy
 
             if(!direction) { // <---
-                //index = indexes[0] + pointer;
                 index = pointer - indexes[0];
                 pointer = index - substring.length;
             } else { // -->
@@ -153,7 +153,6 @@ function positioner(inputString) {
                 workspace = workspace.substring(0, pointer) + workspace.substring(pointer+num);
             } else {
                 workspace = workspace.substring(0, reverse-num) + workspace.substring(reverse);
-                //workspace = workspace.substring(0, pointer-num) + workspace.substring(pointer);
             }
         },
 
@@ -166,8 +165,23 @@ function positioner(inputString) {
             return direction;
         },
 
-        getPointer() {
+        getPointer: function() {
             return pointer;
+        },
+
+        getProperties: function() {
+            var obj = {
+                _workspace: workspace,
+                _pointer: pointer,
+                _direction: direction
+            };
+            return obj;
+        },
+
+        setProperties: function(obj) {
+            workspace = obj['_workspace'];
+            pointer = obj['_pointer'];
+            direction = obj['_direction'];
         }
     }
 

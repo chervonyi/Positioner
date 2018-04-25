@@ -3,6 +3,7 @@
     <head>
         <script type="text/javascript" src="positioner.js"></script>
         <script type="text/javascript" src="logic.js"></script>
+        <script type="text/javascript" src="history.js"></script>
         <meta charset="utf-8">
         <title>Test JS</title>
         <link rel="stylesheet" type="text/css" href="style.css">
@@ -12,7 +13,7 @@
             <h2>Positioner</h2>
             <div class="top-block">
                 <div class="text">
-                    <table id="table" onclick="test(event)">
+                    <table id="table" onclick="moveOnClick(event)">
                         <tr class="letter">
                         </tr>
                     </table>
@@ -30,6 +31,9 @@
                 </div>
 
             </div>
+            <div class="cellar">
+                <h2 id="result">&nbsp</h2>
+            </div>
             <div class="bottom-block">
                 <div class="top">
                     <table class="remove-border" ellspacing="0" cellpadding="0" border="0">
@@ -41,6 +45,7 @@
                         <tr>
                             <td class="align-right"><button type="button" name="button" onclick="resetPointer()" class="option-button">Reset</button></td>
                         </tr>
+
                     </table>
 
 
@@ -53,15 +58,15 @@
                         </tr>
                         <tr>
                             <td class="align-right"><button type="button" name="button" onclick="has()" class="option-button simple not-active" disabled>Has</button></td>
-                            <td class="align-left"><button type="button" name="button" onclick="add()" class="option-button simple not-active" disabled>Add</button></td>
+                            <td class="align-left"><button type="button" name="button" onclick="run(add)" class="option-button simple not-active" disabled>Add</button></td>
                         </tr>
                         <tr>
-                            <td class="align-right"><button type="button" name="button" onclick="next()" class="option-button simple not-active" disabled>Next</button></td>
-                            <td class="align-left"><button type="button" name="button" onclick="replace()" class="option-button difficult not-active" disabled>Replace</button></td>
+                            <td class="align-right"><button type="button" name="button" onclick="run(next)" class="option-button simple not-active" disabled>Next</button></td>
+                            <td class="align-left"><button type="button" name="button" onclick="run(replace)" class="option-button difficult not-active" disabled>Replace</button></td>
                         </tr>
                         <tr>
-                            <td class="align-right"><button type="button" name="button" onclick="prev()" class="option-button simple not-active" disabled>Prev</button></td>
-                            <td class="align-left"><button type="button" name="button" onclick="replaceAll()" class="option-button difficult not-active" disabled>Replace All</button></td>
+                            <td class="align-right"><button type="button" name="button" onclick="run(prev)" class="option-button simple not-active" disabled>Prev</button></td>
+                            <td class="align-left"><button type="button" name="button" onclick="run(replaceAll)" class="option-button difficult not-active" disabled>Replace All</button></td>
                         </tr>
                     </table>
                 </div>
@@ -71,21 +76,34 @@
                             <td class="align-left"><input type="number" id="step" value="1" min="1"></td>
                         </tr>
                         <tr>
-                            <td class="align-left"><button type="button" name="button" onclick="forward()" class="option-button">Forward</button></td>
+                            <td class="align-left"><button type="button" name="button" onclick="run(forward)" class="option-button">Forward</button></td>
                         </tr>
                         <tr>
-                            <td class="align-left"><button type="button" name="button" onclick="back()" class="option-button">Back</button></td>
+                            <td class="align-left"><button type="button" name="button" onclick="run(back)" class="option-button">Back</button></td>
                         </tr>
                         <tr>
-                            <td class="align-left"><button type="button" name="button" onclick="remove()" class="option-button">Remove</button></td>
+                            <td class="align-left"><button type="button" name="button" onclick="run(remove)" class="option-button">Remove</button></td>
                         </tr>
                     </table>
 
                 </div>
             </div>
-            <div class="cellar">
-                <h2 id="result"></h2>
+            <div class="history-block">
+                <button type="button" onclick="displayHistory()" class="accent option-button">Show history</button>
+                <div class="table" id="history-block">
+                    <table id="history">
+                        <tr>
+                            <th width="30%">String before</th>
+                            <th width="30%">String after</th>
+                            <th width="10%">Changes</th>
+                            <th width="15%">Pointer before</th>
+                            <th width="15%">Pointer after</th>
+                            <th width="15%">Rollback</th>
+                        </tr>
+                    </table>
+                </div>
             </div>
+            &nbsp;
         </div>
         <script type="text/javascript">
             document.getElementById("insert").click();
@@ -98,6 +116,8 @@
                     document.getElementById("insert").click();
                 }
             });
+
+
         </script>
     </body>
 </html>

@@ -33,26 +33,11 @@ body {
 }
 
 .bottom-block {
-    margin-top: 5px;
     background-image: linear-gradient(-45deg, #2f3d46 25%, transparent 25%, transparent 50%, #2f3d46 50%, #2f3d46 75%, transparent 75%, transparent);
     background-size: 300px 300px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     width: 100%;
-    height: 230px;
-    padding: 20px;
-    -webkit-box-sizing: border-box;
-}
-
-.bottom-block-background {
-    position: absolute;
-    margin-top: -235px;
-    z-index: -1;
-    background-image: linear-gradient(-45deg, #2f3d46 25%, transparent 25%, transparent 50%, #2f3d46 50%, #2f3d46 75%, transparent 75%, transparent);
-    background-size: 200px 200px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    width: 1100px;
     height: 230px;
     padding: 20px;
     -webkit-box-sizing: border-box;
@@ -70,9 +55,11 @@ body {
     margin: 0px auto;
 }
 
-.top-block table, th, td  {
+.top-block table,
+.top-block th,
+.top-block td  {
     border: 1px solid #dddddd;
-    cursor: pointer;
+    cursor: copy;
 }
 
 .top-block td {
@@ -91,7 +78,7 @@ body {
 }
 
 .bottom-block .top {
-    padding: 0px 70px 100px 20px;
+    padding: 0px 70px 10px 20px;
     float: left;
     width: auto;
     text-align: center;
@@ -163,7 +150,7 @@ input:focus{
     outline:0 none;
 }
 
-.insert-button:active {
+.accent:active {
     background-color: #09ac48;
 }
 
@@ -284,7 +271,49 @@ input[type="number"]::-webkit-inner-spin-button {
     transform: scale(2.5);
 }
 
+.cellar h2 {
+    background-color: #9cbba2;
+    margin: 0;
+    padding: 10px 0px;
+}
+
 #result {
     font-size: 20px;
     text-align: center;
+}
+
+.history-block {
+    text-align: center;
+    padding-top: 20px;
+    margin-bottom: 30px;
+}
+
+#history-block {
+    /* VISION OF TABLE  */
+    /* display: block; */
+    display: none;
+
+}
+#history-block table {
+    margin-top: 30px;
+
+    border-collapse: collapse;
+
+}
+
+#history-block table,
+#history-block tr,
+#history-block td,
+#history-block th {
+    padding: 10px;
+    border: 1px solid #b0b3bb;
+    font-size: 14px;
+}
+
+#history-block tr {
+    height: 20px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }

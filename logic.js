@@ -1,5 +1,6 @@
 var pos;
 
+
 function insertText() {
     var textField = document.getElementById('text');
     pos = positioner(textField.value);
@@ -17,7 +18,6 @@ function updateTable() {
 
     for(var i = 0; i < workspace.length; i++) {
         cell = letterArray.insertCell(i);
-
         cell.innerHTML = workspace.charAt(i);
     }
 
@@ -45,13 +45,15 @@ function updatePointer() {
             table.rows[0].cells[i].setAttribute("id", "cell_" + i);
         }
     } else {
-        for (let i = 0; i <= length; i++) {
-            if (pointer == 0) {
-                table.rows[0].cells[i+1].className = "pointerRight";
+        for (let i = 0; i < length; i++) {
+
+            if (pointer == 0 && i == length - 1) {
+                table.rows[0].cells[i].className = "pointerRight";
             }
-            if (pointer == (length - i)) {
+            else if (pointer == (length - i)) {
                 table.rows[0].cells[i].className = "pointerLeft";
             } else {
+
                 table.rows[0].cells[i].className = "";
             }
             table.rows[0].cells[i].setAttribute("id", "cell_" + i);
@@ -105,6 +107,14 @@ function changeDirection () {
     updatePointer();
 }
 
+function run(func) {
+    var rollback = pos.getProperties();
+    func(); // Run necessary function
+
+    let commitNumber = Log.commit(rollback, pos.getProperties());
+    updateHistoryTable(rollback, pos.getProperties(), commitNumber);
+}
+
 function has () {
     var input = document.getElementById('wordMain');
     if (input.value) {
@@ -139,6 +149,12 @@ function add () {
     }
     clearTextFields();
 }
+
+function tmp (poss) {
+    return "workspace = " + poss['_workspace'] + " _ " +
+        "pointer = " + poss['_pointer'];
+}
+
 
 function replace () {
     var inputMain = document.getElementById('wordMain').value;
@@ -247,7 +263,7 @@ function supervisorAddInput() {
     }
 }
 
-function test(event) {
+function moveOnClick(event) {
     let id = event.target.id;
     let newPointer = id.substring(5); // Get id of cell. E-g: "cell_2"
 
@@ -281,3 +297,54 @@ function clearTextFields() {
     document.getElementById('wordMain').value = "";
     document.getElementById('wordAdditional').value = "";
 }
+
+function displayHistory() {
+    var table = document.getElementById("history-block");
+
+    if (table.style.display === "none" || table.style.display === "") {
+        table.style.display = "block";
+    } else {
+        table.style.display = "none";
+    }
+}
+
+function rollback(commitNumber) {
+    var obj = Log.rollback(commitNumber);
+    pos.setProperties(obj);
+
+    updateTable();
+    updateDirection();
+    printResult("");
+}
+
+function updateHistoryTable(_rollback, pos, commitNumber) {
+    let workspaceBefore = _rollback['_workspace'];
+    let workspaceAfter = pos['_workspace'];
+
+    var table = document.getElementById('history');
+    var row = table.insertRow(1);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    var cell4 = row.insertCell(3);
+    var cell5 = row.insertCell(4);
+    var cell6 = row.insertCell(5);
+
+    cell1.innerHTML = workspaceBefore;
+    cell2.innerHTML = workspaceAfter;
+    cell3.innerHTML = workspaceAfter.length - workspaceBefore.length;
+    cell4.innerHTML = _rollback['_pointer'];
+    cell5.innerHTML = pos['_pointer'];
+    cell6.innerHTML = "&#x2691;";
+    cell6.setAttribute("id", "commit_" + commitNumber);
+    cell6.className = "cursor-pointer";
+    cell6.addEventListener("click", function () {
+        rollback(event.target.id.substring(7)); // Rollback with id of commit. E-g: "commit_*"
+    });
+}
+
+
+// TODO-LIST:
+// [ ] Fix problem with Replace & ReplaceAll
+// [ ] Redesign
+// [ ] Remove JS code from index.html
