@@ -33,6 +33,7 @@ body {
 }
 
 .bottom-block {
+    margin-top: 4px;
     background-image: linear-gradient(-45deg, #2f3d46 25%, transparent 25%, transparent 50%, #2f3d46 50%, #2f3d46 75%, transparent 75%, transparent);
     background-size: 300px 300px;
     border-bottom-left-radius: 10px;
@@ -119,7 +120,7 @@ body {
 }
 
 .not-active {
-    background-color: #3f4040;
+    background-color: #3C3F41;
 }
 
 button:hover {
@@ -272,9 +273,9 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .cellar h2 {
-    background-color: #9cbba2;
+    /* background-color: rgba(74, 108, 150, 0.05); */
     margin: 0;
-    padding: 10px 0px;
+    padding: 20px 0px;
 }
 
 #result {
@@ -284,16 +285,14 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .history-block {
     text-align: center;
-    padding-top: 20px;
+    /* padding-top: 20px; */
     margin-bottom: 30px;
 }
 
 #history-block {
-    /* VISION OF TABLE  */
-    /* display: block; */
     display: none;
-
 }
+
 #history-block table {
     margin-top: 30px;
 
@@ -306,7 +305,7 @@ input[type="number"]::-webkit-inner-spin-button {
 #history-block td,
 #history-block th {
     padding: 10px;
-    border: 1px solid #b0b3bb;
+    border: 3px solid #2f3d46;
     font-size: 14px;
 }
 
@@ -316,4 +315,15 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .cursor-pointer {
     cursor: pointer;
+}
+
+#history-block th {
+    background-color: #2f3d46;
+    border: 3px solid #292E32;
+    border-bottom: 0px;
+}
+
+#history-block td {
+    background-color: #485055;
+    border: 3px solid #292E32;
 }

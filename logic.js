@@ -345,6 +345,6 @@ function updateHistoryTable(_rollback, pos, commitNumber) {
 
 
 // TODO-LIST:
-// [ ] Fix problem with Replace & ReplaceAll
-// [ ] Redesign
+// [x] Fix problem with Replace & ReplaceAll. UPDATE: Problem was not noticed
+// [x] Redesign
 // [ ] Remove JS code from index.html
