@@ -127,7 +127,7 @@ function positioner(inputString) {
         },
 
         // Makes N steps back in right direction
-        back: function(step) {
+        backward: function(step) {
             pointer -= step;
 
             if(pointer < 0)
